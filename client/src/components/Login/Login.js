@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import axios from 'axios';
 
 import store from 'store';
 
@@ -33,17 +34,10 @@ class SignInForm extends Component {
 
         console.log('On submit pressed');
 
-        fetch('http://localhost:5000/api/v1/chatup/auth/login', {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(this.state)
-        })
-            .then((result) => result.json())
+        axios.post('http://' + window.location.hostname +':5000'+'/api/v1/chatup/auth/login',this.state)
             .then((info) => {
                 console.log(info);
-                res = info;
+                res = info.data;
                 if (res.success === true) {
                     console.log("Hello");
                     this.setState({

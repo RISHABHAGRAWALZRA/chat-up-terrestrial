@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import store from 'store'
 
+import axios from 'axios';
+
 import './register.css'
 
 
@@ -32,6 +34,7 @@ class SignUpForm extends Component {
 
         console.log('On submit pressed');
 
+        /*
         fetch('http://localhost:5000/api/v1/chatup/auth/register', {
             method: "POST",
             headers: {
@@ -39,10 +42,11 @@ class SignUpForm extends Component {
             },
             body: JSON.stringify(this.state)
         })
-            .then((result) => result.json())
+        */
+        axios.post('http://' + window.location.hostname +':'+window.location.port+'/api/v1/chatup/auth/register',this.state)
             .then((info) => { 
                 console.log(info);
-                if (info.success === true) {
+                if (info.data.success === true) {
                     console.log("Hello");
                     store.set('loggedIn', true);
                     store.set('state',this.state);
@@ -68,7 +72,7 @@ class SignUpForm extends Component {
                     </div>
                     <div className="FormField">
                         <button className="FormField__Button mr-20">Sign Up</button>
-                        <Link to={`/login`} >
+                        <Link to={`/`} >
                             <h6>Login</h6>
                         </Link>
                     </div>

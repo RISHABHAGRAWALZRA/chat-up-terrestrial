@@ -16,7 +16,7 @@ import store from 'store';
 import axios from 'axios';
 
 let socket;
-const ENDPOINT = 'http://localhost:5000';
+const ENDPOINT = 'http://' + window.location.hostname +':5000';
 
 class Chat extends React.Component {
   constructor() {
@@ -44,7 +44,8 @@ class Chat extends React.Component {
     
 
     const email = store.get('state').email
-    axios.get('http://localhost:5000/api/v1/chatup/join/' + email)
+    console.log(email);
+    axios.get('http://' + window.location.hostname +':5000'+'/api/v1/chatup/join/' + email)
       .then(res => {
         console.log(res.data.rooms);
         console.log(res.data.joinedrooms);
@@ -165,7 +166,7 @@ class Chat extends React.Component {
       emailId: store.get('state').email
     }
 
-    axios.post(`http://localhost:5000/api/v1/chatup/join/joinroom`, room)
+    axios.post('http://' + window.location.hostname +':5000'+`/api/v1/chatup/join/joinroom`, room)
       .then(res => {
         //console.log(res.data);
 
